@@ -27,12 +27,18 @@ export default {
         const { status, message, data } = yield call(login, payload);
         if (status) {
           $$.setStore('user', data);
+          yield put({
+            type: 'loginSuccess',
+            payload: { data }
+          });
           yield put(routerRedux.replace('/'));
+          return true
         } else {
           yield put({
             type: 'loginError',
             payload: { message }
           });
+          return false
         }
       } catch (e) {
         console.log(e)
@@ -40,6 +46,7 @@ export default {
           type: 'loginError',
           payload: { message: e.message }
         });
+        return false
       }
     },
     *logout(_, { put }) { }
@@ -50,7 +57,7 @@ export default {
       return {
         ...state,
         loggedIn: true,
-        message: '',
+        message: '登录成功',
         user: payload
       };
     },

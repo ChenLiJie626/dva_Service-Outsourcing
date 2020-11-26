@@ -36,9 +36,9 @@ export default class BasicLayout extends React.PureComponent {
       theme.layout = [
         'fixedHeader',
         'fixedSidebar',
-        'fixedBreadcrumbs'
+        'fixedBreadcrumbs',
         // 'hidedBreadcrumbs',
-        // 'tabLayout',
+        'tabLayout',
       ];
     }
     this.state = {

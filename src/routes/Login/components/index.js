@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Layout, Button, Input, Checkbox, Spin, Form } from 'antd';
+import { Layout, Button, Input, Checkbox, Spin, Form, message } from 'antd';
 import logoImg from 'assets/images/logo1.png';
 import './index.less';
 const { Link } = router;
@@ -19,7 +19,12 @@ export default class Login extends Component {
     dispatch({
       type: 'login/login',
       payload: values
+    }).then(result => {
+      if(result === true){
+        message.success('登陆成功');
+      }
     });
+
   };
 
   render() {
