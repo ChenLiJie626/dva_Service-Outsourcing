@@ -2,6 +2,7 @@ import { createRoutes } from '@/utils/core';
 import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
 
+import Dashboard from './Dashboard';
 import Login from './Login';
 import Register from './Register';
 import Page403 from './Pages/403';
@@ -35,6 +36,7 @@ const routesConfig = app => [
     component: BasicLayout,
     indexRoute: '/dashboard',
     childRoutes: [
+      Dashboard(app),
       Blank(app),
       NotFound(),
       Page403(),
