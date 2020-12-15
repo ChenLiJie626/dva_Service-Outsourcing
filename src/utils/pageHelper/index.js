@@ -10,13 +10,22 @@ export default class　PageHelper {
     return pageInfo;
   }
 
+  static exited = (data) => {
+    var pageInfo = new PageInfo();
+    pageInfo.pageNum = data.pageNum
+    pageInfo.list = data.list
+    pageInfo.pageSize = data.pageSize
+    pageInfo.total = data.total
+    pageInfo.totalPage = data.totalPage
+    return pageInfo
+  }
   /**
    * 可以通过设置这个函数，格式化发送到后端的参数
-   * 
+   *
    * 例如后端分页接口需要的参数是
    * {
-   *    currentPage: 1, 
-   *    showCount: 10, 
+   *    currentPage: 1,
+   *    showCount: 10,
    *    paramMap: {name: 'jonn'}
    * }
    * 可以通过设置这个参数格式化分页信息
@@ -29,7 +38,7 @@ export default class　PageHelper {
   static requestFormat(pageInfo) {
     return config.pageHelper.requestFormat(pageInfo);
   };
-   
+
 
   /**
    * 格式化从服务端反回的数据，并置入PageInfo对象中，
@@ -40,7 +49,7 @@ export default class　PageHelper {
      总记录数 total;
      总页数 totalPages;
      结果集 list;
-   * @param {object} resp 
+   * @param {object} resp
   */
   static responseFormat(resp) {
     return config.pageHelper.responseFormat(resp);

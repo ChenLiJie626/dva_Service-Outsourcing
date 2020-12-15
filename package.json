@@ -31,6 +31,7 @@
     "enquire.js": "^2.1.6",
     "lazysizes": "^4.0.4",
     "masonry-layout": "^4.2.1",
+    "moment": "^2.29.1",
     "object.omit": "^3.0.0",
     "path-to-regexp": "^2.2.1",
     "react": "^16.13.0",
@@ -51,6 +52,7 @@
     "less-loader": "^4.1.0",
     "mockjs": "^1.1.0",
     "prop-types": "^15.6.1",
+    "react-amap": "^1.2.8",
     "react-app-rewired": "^2.1.5",
     "react-scripts": "^3.4.0",
     "webpack-bundle-analyzer": "^3.3.2"

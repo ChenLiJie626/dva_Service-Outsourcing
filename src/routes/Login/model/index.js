@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva';
-import { login } from '../service';
+import { login,timers } from '../service';
 import $$ from 'cmn-utils';
 
 export default {
@@ -25,6 +25,7 @@ export default {
     *login({ payload }, { call, put }) {
       try {
         const { status, message, data } = yield call(login, payload);
+        console.log(yield call(timers,payload));
         if (status) {
           $$.setStore('user', data);
           yield put({

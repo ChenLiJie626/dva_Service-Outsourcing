@@ -73,6 +73,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             name: '500',
             path: '/500',
           },
+          {
+            name: '表格',
+            path: '/table',
+          },
         ],
       },
     ], 400)

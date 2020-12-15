@@ -17,7 +17,7 @@ export default class PageInfo {
   total = 0;
 
   // 总页数
-  totalPages = 0;
+  totalPage = 0;
 
   // 结果集
   list = [];
@@ -45,7 +45,7 @@ export default class PageInfo {
     this.pageSize = pageSize;
     this.size = 0;
     this.total = 0;
-    this.totalPages = 0;
+    this.totalPage = 0;
     this.list = [];
     this.filters = {};
     this.sorts = {};
@@ -58,7 +58,7 @@ export default class PageInfo {
    * @param {number} pageSize page size
    */
   jumpPage(pageNum, pageSize) {
-    if ((pageNum && pageNum <= Math.ceil(this.totalPages)) || pageNum === 1) {
+    if ((pageNum && pageNum <= Math.ceil(this.totalPage)) || pageNum === 1) {
       this.pageNum = pageNum;
       if (pageSize) this.pageSize = pageSize;
     }
@@ -94,17 +94,17 @@ export default class PageInfo {
 
   /**
    * 下一页或指定页数
-   * @param {number} pageNum 
+   * @param {number} pageNum
    */
   nextPage(pageNum) {
-    if (this.totalPages !== -1) {
-      if (pageNum && pageNum <= Math.ceil(this.totalPages)) {
+    if (this.totalPage !== -1) {
+      if (pageNum && pageNum <= Math.ceil(this.totalPage)) {
         this.pageNum = pageNum;
-      } else if (this.pageNum + 1 <= Math.ceil(this.totalPages)) {
+      } else if (this.pageNum + 1 <= Math.ceil(this.totalPage)) {
         this.pageNum ++;
       }
     } else {
-      this.pageNum = this.totalPages;
+      this.pageNum = this.totalPage;
     }
     return this;
   }
@@ -113,7 +113,7 @@ export default class PageInfo {
    * 上一页
    */
   prevPage() {
-    if (this.totalPages !== -1) {
+    if (this.totalPage !== -1) {
       if (this.pageNum - 1 > 0) {
         this.pageNum --;
       }
@@ -139,4 +139,4 @@ export default class PageInfo {
       }
     })
   }
-} 
+}

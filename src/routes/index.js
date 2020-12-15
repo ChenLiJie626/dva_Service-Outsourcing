@@ -9,6 +9,7 @@ import Page403 from './Pages/403';
 import NotFound from './Pages/404';
 import Page500 from './Pages/500';
 import Blank from './Blank';
+import Table from './Table'
 /**
  * 主路由配置
  *
@@ -38,9 +39,11 @@ const routesConfig = app => [
     childRoutes: [
       Dashboard(app),
       Blank(app),
-      NotFound(),
+      Table(app),
       Page403(),
       Page500(),
+      NotFound(),
+
     ]
   }
 ];

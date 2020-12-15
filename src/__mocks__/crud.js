@@ -28,17 +28,9 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         'totalPage': 10,
         [`dataList|${body.showCount}`]: [{
           'id|+1': idbase,
-          'deptName': deptName ? deptName : '@cword(3, 5)',      
-          'distributionNetwork|1': ['0', '1'],
-          'address': '@county()',
-          'type': '@cword(3)',  
-          'planBeginTime': '@date',
-          'planEndTime': '@date',
-          'workEmployee|1-3': [{
-            'key|+1': 1,
-            'title': '@cname',
-          }],
-          'content': '@csentence',
+          'name' : '@cword(3, 5)',
+          'startTime': ['0', '1'],
+          'endTime': '@county()',
         }],
       }), 400)
     },
