@@ -12,6 +12,7 @@ export default modelEnhance({
     *submit({ payload }, { call, put }) {
       console.log(payload)
       const response = yield call(register, payload);
+      console.log(response)
       yield put({
         type: 'registerHandle',
         payload: response,

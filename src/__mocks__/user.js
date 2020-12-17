@@ -73,10 +73,17 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             name: '500',
             path: '/500',
           },
+        ],
+      },
+      {
+        name: '表格',
+        icon: 'BulbOutlined',
+        path: '/business',
+        children: [
           {
-            name: '表格',
-            path: '/table',
-          },
+            name: 'CRUD',
+            path: '/table/:detail?',
+          }
         ],
       },
     ], 400)

@@ -10,6 +10,7 @@ import NotFound from './Pages/404';
 import Page500 from './Pages/500';
 import Blank from './Blank';
 import Table from './Table'
+import ActivityDetail from './Table/routers/Detail';
 /**
  * 主路由配置
  *
@@ -40,6 +41,7 @@ const routesConfig = app => [
       Dashboard(app),
       Blank(app),
       Table(app),
+      ActivityDetail(app),
       Page403(),
       Page500(),
       NotFound(),

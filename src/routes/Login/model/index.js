@@ -25,7 +25,7 @@ export default {
     *login({ payload }, { call, put }) {
       try {
         const { status, message, data } = yield call(login, payload);
-        console.log(yield call(timers,payload));
+        // console.log(yield call(timers,payload));
         if (status) {
           $$.setStore('user', data);
           yield put({

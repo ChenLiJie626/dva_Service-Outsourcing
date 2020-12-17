@@ -4,7 +4,7 @@ import {string} from "prop-types";
 export async function listAll(payload){
     return $$.get('/activity/list',{
         pageNum : payload,
-        pageSize : 3
+        pageSize : 5
     });
 }
 

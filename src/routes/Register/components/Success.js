@@ -7,7 +7,6 @@ export default class extends Component {
   render() {
     const actions = (
       <Fragment>
-        <Button type="primary">查看邮箱</Button>
         <Button href="/">返回首页</Button>
       </Fragment>
     );
@@ -24,7 +23,7 @@ export default class extends Component {
     );
 
     const extra = <div>Yoursite.com</div>;
-    
+
     return (
       <Layout className="full-layout result-page">
         <Content>
@@ -35,7 +34,7 @@ export default class extends Component {
             footer={footer}
             extra={extra}
           >
-            激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。
+            恭喜您，注册成功
           </Result>
         </Content>
       </Layout>

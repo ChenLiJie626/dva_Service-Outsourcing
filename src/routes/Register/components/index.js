@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
-import { Input, Button, Select, Row, Col, Popover, Progress, Layout, Form } from 'antd';
+import { Input, Button, Select, Row, Col, Popover, Progress, Layout, Form, Radio } from 'antd';
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
@@ -76,7 +76,8 @@ export default class Register extends Component {
   handleSubmit = values => {
     const { dispatch } = this.props;
     const { prefix } = this.state;
-
+    values.collage_id = Number(values.collage_id )
+    console.log(values)
     dispatch({
       type: 'register/submit',
       payload: {
@@ -161,17 +162,21 @@ export default class Register extends Component {
               <b>LANIF</b>
               <span>Admin</span>
             </div>
-            <Form.Item name="mail" rules={[
+            <Form.Item name="staff_id" rules={[
               {
                 required: true,
-                message: '请输入邮箱地址！'
-              },
-              {
-                type: 'email',
-                message: '邮箱地址格式错误！'
+                message: '请输入职工编号！'
               }
             ]}>
-              <Input size="large" placeholder="邮箱" />
+              <Input size="large" placeholder="职工编号" />
+            </Form.Item>
+            <Form.Item name="name" rules={[
+              {
+                required: true,
+                message: '请输入姓名！'
+              }
+            ]}>
+              <Input size="large" placeholder="姓名" />
             </Form.Item>
             <Form.Item>
               <Popover
@@ -212,58 +217,19 @@ export default class Register extends Component {
             ]}>
               <Input size="large" type="password" placeholder="确认密码" />
             </Form.Item>
-            <Form.Item>
-              <Input.Group compact>
-                <Select
-                  size="large"
-                  value={prefix}
-                  onChange={this.changePrefix}
-                  style={{ width: '20%' }}
-                >
-                  <Select.Option value="86">+86</Select.Option>
-                  <Select.Option value="87">+87</Select.Option>
-                </Select>
-                <Form.Item noStyle name="mobile" rules={[
-                  {
-                    required: true,
-                    message: '请输入手机号！'
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '手机号格式错误！'
-                  }
-                ]}>
-                  <Input
-                    size="large"
-                    style={{ width: '80%' }}
-                    placeholder="11位手机号"
-                  />
-                </Form.Item>
-              </Input.Group>
+            <Form.Item name="role" >
+              <Radio.Group>
+                <Radio.Button value="0">学生</Radio.Button>
+                <Radio.Button value="1">管理员</Radio.Button>
+              </Radio.Group>
             </Form.Item>
-            <Form.Item>
-              <Row gutter={8}>
-                <Col span={16}>
-                  <Form.Item name="captcha" rules={[
-                    {
-                      required: true,
-                      message: '请输入验证码！'
-                    }
-                  ]}>
-                    <Input size="large" placeholder="验证码" />
-                  </Form.Item>
-                </Col>
-                <Col span={8}>
-                  <Button
-                    className="getCaptcha"
-                    size="large"
-                    disabled={count}
-                    onClick={this.onGetCaptcha}
-                  >
-                    {count ? `${count} s` : '获取验证码'}
-                  </Button>
-                </Col>
-              </Row>
+            <Form.Item name="collage_id" rules={[
+              {
+                required: true,
+                message: '请输入学院编号！'
+              }
+            ]}>
+              <Input size="large" placeholder="学院编号" />
             </Form.Item>
             <Form.Item>
               <Button
