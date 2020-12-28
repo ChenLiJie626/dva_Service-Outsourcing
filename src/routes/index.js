@@ -15,6 +15,7 @@ import ActivityDetail from './Table/routers/Detail';
 import heatmap from './heatmap'
 import chart from './chart/EC'
 import ApplyActivity from './ApplyActivity'
+import ActivityParticipation from './ActivityParticipation'
 /**
  * 主路由配置
  *
@@ -50,6 +51,7 @@ const routesConfig = app => [
       TableFailed(app),
       ActivityDetail(app),
       ApplyActivity(app),
+      ActivityParticipation(app),
       Page403(),
       Page500(),
       NotFound(),

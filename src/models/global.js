@@ -1,5 +1,6 @@
 import $$ from 'cmn-utils';
 import modelEnhance from '@/utils/modelEnhance';
+import {routerRedux} from "dva";
 
 export default modelEnhance({
   namespace: 'global',
@@ -56,5 +57,9 @@ export function getFlatMenu(menus) {
 }
 
 export async function getMenu(payload) {
-  return $$.post('/user/menu', payload);
+  const user = $$.getStore('user')
+  if(user.role !== '1'){
+    return $$.post('/user/menu', payload);
+  }
+  return $$.post('/admin/menu', payload);
 }

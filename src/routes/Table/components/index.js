@@ -42,13 +42,7 @@ export default class extends BaseComponent {
             }
         });
     };
-    componentDidMount() {
-        //权限管理
-        let user = $$.getStore('user');
-        if(user.role !== '1'){
-            this.props.dispatch(routerRedux.replace('/403'));
-        }
-    }
+
     render() {
         const { crud, loading, dispatch } = this.props;
         const { pageData, employees } = crud;

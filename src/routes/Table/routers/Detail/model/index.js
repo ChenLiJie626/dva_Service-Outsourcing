@@ -8,6 +8,7 @@ export default modelEnhance({
     data: "",
     activity_info: null,
     id: null,
+    comment: null
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -18,12 +19,12 @@ export default modelEnhance({
           let n1 = str.length;//地址的总长度
           let n2 = str.indexOf("=");//取得=号的位置
           let id = str.substr(n2 + 1, n1 - n2);//从=号后面的内容
-          dispatch({
-            type: 'initQRcode',
-            payload: {
-              id
-            }
-          });
+          // dispatch({
+          //   type: 'initQRcode',
+          //   payload: {
+          //     id
+          //   }
+          // });
           dispatch({
             type: 'initInfo',
             payload: {
@@ -38,20 +39,19 @@ export default modelEnhance({
   effects: {
     // 进入页面加载
     * initQRcode({payload}, {call, put, select}) {
-      let {data} = yield call(getQRcode,payload)
-
-      yield put({
-        type: 'getInitSuccess',
-        payload: {
-          data : data,
-          id : payload,
-          type : 0
-        }
-      });
+      // let {data} = yield call(getQRcode,payload)
+      // let {data} = '222'
+      // yield put({
+      //   type: 'getInitSuccess',
+      //   payload: {
+      //     data : data,
+      //     id : payload,
+      //     type : 0
+      //   }
+      // });
     },
     * initInfo({payload}, {call, put, select}) {
       let {data} = yield call(getActivity_info,payload)
-
       yield put({
         type: 'getInitSuccess',
         payload: {
@@ -69,6 +69,14 @@ export default modelEnhance({
       }
       yield call(updatePerson,data)
       return true
+    },
+    * update_comment({payload}, {call, put, select}){
+      yield put({
+        type: 'updateComment',
+        payload: {
+          comment: payload
+        }
+      });
     }
   },
   reducers: {
@@ -87,5 +95,11 @@ export default modelEnhance({
         };
       }
     },
+    updateComment(state, { payload }) {
+      return{
+        ...state,
+        comment: payload.comment
+      }
+    }
   }
 });

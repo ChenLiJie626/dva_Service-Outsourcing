@@ -1,8 +1,11 @@
 import React from 'react';
 import {connect, router} from 'dva';
-import {Layout, Tabs, Descriptions, Badge, Table, Progress, InputNumber,Popconfirm, Button, message} from 'antd';
+import {Layout, Tabs, Descriptions, Badge, Table, Progress, InputNumber,Popconfirm,
+    Button, message, List, Comment, Tooltip, Rate} from 'antd';
+import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
 import Carousel from 'nuka-carousel';
 import Slider from "react-slick";
+import moment from 'moment';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import Image from 'components/Image';
@@ -24,14 +27,21 @@ const columns = [
         key: 'status',
     },
 ]
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+const customIcons = {
+    1: <FrownOutlined />,
+    2: <FrownOutlined />,
+    3: <MehOutlined />,
+    4: <SmileOutlined />,
+    5: <SmileOutlined />,
+};
+
 
 @connect(({ crudDetail, loading }) => ({
   crudDetail,
   loading: loading.models.crudDetail
 }))
-
 export default class extends BaseComponent {
-
 
   render() {
 
@@ -46,9 +56,8 @@ export default class extends BaseComponent {
           activity_img = activity_info.activity_img
           activity_intro = activity_info.activity_intro
       }
-      let img_vase = 'data:image/png;base64,'+data
+      // let img_vase = 'data:image/png;base64,'+data
       function confirm(e) {
-          // console.log(people_limit,666);
           dispatch({
               type: 'crudDetail/update_person',
               payload: people_limit
@@ -92,6 +101,42 @@ export default class extends BaseComponent {
       }
 
 
+      const comment_data = [
+          {
+              actions: [<Rate tooltips={desc}  value={3} disabled />],
+              author: 'chenlj',
+              avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+              content: (
+                  <p>
+                      We supply a series of design principles, practical patterns and high quality design
+                      resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                      efficiently.
+                  </p>
+              ),
+              datetime: (
+                  <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                      <span>{moment().subtract(1, 'days').fromNow()}</span>
+                  </Tooltip>
+              ),
+          },
+          {
+              actions: [<Rate tooltips={desc}  value={3} disabled />],
+              author: 'Han Solo',
+              avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+              content: (
+                  <p>
+                      We supply a series of design principles, practical patterns and high quality design
+                      resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                      efficiently.
+                  </p>
+              ),
+              datetime: (
+                  <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                      <span>{moment().subtract(2, 'days').fromNow()}</span>
+                  </Tooltip>
+              ),
+          },
+      ];
     return (
       <Layout className="full-layout page blank-page">
         <Content>
@@ -105,13 +150,13 @@ export default class extends BaseComponent {
                 <Tabs type="card">
                     <TabPane tab="二维码签到" key="1">
                         <Panel title="二维码预览">
-                          <Image
-                              style={{ width: 200 }}
-                              src={img_vase}
-                              previewList={[
-                                  img_vase
-                              ]}
-                          />
+                          {/*<Image*/}
+                          {/*    style={{ width: 200 }}*/}
+                          {/*    src={img_vase}*/}
+                          {/*    previewList={[*/}
+                          {/*        img_vase*/}
+                          {/*    ]}*/}
+                          {/*/>*/}
                         </Panel>
                     </TabPane>
                     <TabPane tab="活动概述" key="2">
@@ -141,6 +186,26 @@ export default class extends BaseComponent {
                     </TabPane>
                     <TabPane tab="活动进度" key="3">
                         <Table columns={columns} dataSource={datasource} />
+                    </TabPane>
+                    <TabPane tab="活动评论" key="4">
+
+                        <List
+                            className="comment-list"
+                            header={`${comment_data.length} replies`}
+                            itemLayout="horizontal"
+                            dataSource={comment_data}
+                            renderItem={item => (
+                                <li>
+                                    <Comment
+                                        actions={item.actions}
+                                        author={item.author}
+                                        avatar={item.avatar}
+                                        content={item.content}
+                                        datetime={item.datetime}
+                                    />
+                                </li>
+                            )}
+                        />
                     </TabPane>
                 </Tabs>
             </div>

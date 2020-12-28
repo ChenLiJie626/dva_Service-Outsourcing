@@ -44,6 +44,7 @@
     "react-bmapgl": "^0.1.2",
     "react-dom": "^16.13.0",
     "react-fast-compare": "^3.0.1",
+    "react-rater": "^5.1.1",
     "react-slick": "^0.27.13",
     "react-transition-group": "^4.3.0",
     "wangeditor": "^3.1.1"

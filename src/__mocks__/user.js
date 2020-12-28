@@ -60,21 +60,6 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         ],
       },
       {
-        name: '活动列表',
-        icon: 'BulbOutlined',
-        path: '/business',
-        children: [
-          {
-            name: '已通过的活动',
-            path: '/table/:detail?',
-          },
-          {
-            name: '待审批的活动',
-            path: '/table_failed/:detail?',
-          }
-        ],
-      },
-      {
         name: '可视化图表',
         icon: 'BookOutlined',
         path: '/chart',
@@ -92,10 +77,56 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         children: [
           {
             name: '创建活动',
-            path: '/ActivityParticipation',
+            path: '/ActivitySign',
+          },
+          {
+            name: '报名活动',
+            path: '/applyActivity',
           },
         ],
       },
-    ], 400)
+    ], 400),
+    '/api/admin/menu': options => toSuccess([
+      {
+        name: '仪表盘',
+        icon: 'DashboardOutlined',
+        path: '/dashboard',
+      },
+      {
+        name: '页面',
+        icon: 'BookOutlined',
+        path: '/page',
+        children: [
+          {
+            name: '活动位置展示',
+            path: '/blank',
+          },
+          {
+            name: '热力图',
+            path: '/heatmap',
+          },
+        ],
+      },
+      {
+        name: '活动列表',
+        icon: 'BulbOutlined',
+        path: '/business',
+        children: [
+          {
+            name: '已通过的活动',
+            path: '/table/:detail?',
+          },
+          {
+            name: '待审批的活动',
+            path: '/table_failed/:detail?',
+          }
+        ],
+      },
+      {
+        name: '可视化图表',
+        icon: 'BookOutlined',
+        path: '/echarts',
+      },
+    ], 400),
   }
 }
