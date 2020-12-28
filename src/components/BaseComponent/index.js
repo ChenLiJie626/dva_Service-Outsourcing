@@ -9,7 +9,7 @@ class BaseComponent extends React.Component {
   /**
    * history api 路由跳转
    */
-  get history() { 
+  get history() {
     return this.props.history;
   }
 
@@ -56,6 +56,24 @@ class BaseComponent extends React.Component {
     });
   };
 
+  onPassed = record => {
+    if (!record) return;
+    if ($$.isArray(record) && !record.length) return;
+
+    const content = `您是否要通过这${
+        $$.isArray(record) ? record.length : ''
+    }项？`;
+
+    Modal.confirm({
+      title: '注意',
+      content,
+      onOk: () => {
+        this.handlePass($$.isArray(record) ? record : [record]);
+      },
+      onCancel() {}
+    });
+  };
+
   handleAdd() {
     /* 子类重写 */
   }
@@ -65,6 +83,10 @@ class BaseComponent extends React.Component {
   handleDelete(records) {
     /* 子类重写 */
   }
+  handlePass(records){
+    /* 子类重写 */
+  }
+
 }
 
 export default BaseComponent;

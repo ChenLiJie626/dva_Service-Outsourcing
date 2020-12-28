@@ -1,8 +1,8 @@
 import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
-  path: '/blank',
-  title: '活动位置展示',
+  path: '/heatmap',
+  title: '热力图',
   component: dynamicWrapper(app, [import('./model')], () => import('./components'))
 });
 

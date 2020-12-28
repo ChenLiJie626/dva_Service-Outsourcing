@@ -50,40 +50,50 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         path: '/page',
         children: [
           {
-            name: '登录页',
-            path: '/sign/login',
-          },
-          {
-            name: '注册页',
-            path: '/sign/register',
-          },
-          {
-            name: '空白页',
+            name: '活动位置展示',
             path: '/blank',
           },
           {
-            name: '403',
-            path: '/403',
-          },
-          {
-            name: '404',
-            path: '/404',
-          },
-          {
-            name: '500',
-            path: '/500',
+            name: '热力图',
+            path: '/heatmap',
           },
         ],
       },
       {
-        name: '表格',
+        name: '活动列表',
         icon: 'BulbOutlined',
         path: '/business',
         children: [
           {
-            name: 'CRUD',
+            name: '已通过的活动',
             path: '/table/:detail?',
+          },
+          {
+            name: '待审批的活动',
+            path: '/table_failed/:detail?',
           }
+        ],
+      },
+      {
+        name: '可视化图表',
+        icon: 'BookOutlined',
+        path: '/chart',
+        children: [
+          {
+            name: '图表',
+            path: '/echarts',
+          },
+        ],
+      },
+      {
+        name: '活动申请',
+        icon: 'BookOutlined',
+        path: '/apply',
+        children: [
+          {
+            name: '创建活动',
+            path: '/ActivityParticipation',
+          },
         ],
       },
     ], 400)

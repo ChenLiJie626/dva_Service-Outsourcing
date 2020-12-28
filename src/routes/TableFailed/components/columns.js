@@ -19,7 +19,7 @@ export default (self, employees) => [
   },
   {
     title: '活动名称',
-    name: 'activityName',
+    name: 'name',
     tableItem: {},
     searchItem: {
       group: 'abc'
@@ -28,14 +28,14 @@ export default (self, employees) => [
   },
   {
     title: '学院',
-    name: 'collegeName',
+    name: 'college_id',
     tableItem: {},
     searchItem: {},
     formItem: {}
   },
   {
     title: '负责人',
-    name: 'directorName',
+    name: 'director_id',
     tableItem: {},
     searchItem: {},
     formItem: {}
@@ -68,13 +68,14 @@ export default (self, employees) => [
       width: 180,
       render: (text, record) => (
         <DataTable.Oper>
-          <Button tooltip="修改" onClick={e => self.onUpdate(record)}>
+          <Button tooltip="修改信息" onClick={e => self.onUpdate(record)}>
             <Icon type="edit" />
           </Button>
-          <Button tooltip="详情">
-            <Link to={"/crud/detail?id=" + record.id}>
-              <Icon type="LinkOutlined" antd />
-            </Link>
+          <Button tooltip="通过" onClick={e => self.onPassed(record)}>
+            <Icon type="check" />
+          </Button>
+          <Button tooltip="不通过" onClick={e => self.onDelete(record)}>
+            <Icon type="close" />
           </Button>
         </DataTable.Oper>
       )

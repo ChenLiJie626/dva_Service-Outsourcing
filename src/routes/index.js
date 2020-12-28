@@ -10,7 +10,11 @@ import NotFound from './Pages/404';
 import Page500 from './Pages/500';
 import Blank from './Blank';
 import Table from './Table'
+import TableFailed from './TableFailed'
 import ActivityDetail from './Table/routers/Detail';
+import heatmap from './heatmap'
+import chart from './chart/EC'
+import ApplyActivity from './ApplyActivity'
 /**
  * 主路由配置
  *
@@ -40,8 +44,12 @@ const routesConfig = app => [
     childRoutes: [
       Dashboard(app),
       Blank(app),
+      heatmap(app),
+      chart(app),
       Table(app),
+      TableFailed(app),
       ActivityDetail(app),
+      ApplyActivity(app),
       Page403(),
       Page500(),
       NotFound(),

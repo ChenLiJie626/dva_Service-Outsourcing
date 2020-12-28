@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, routerRedux} from 'dva';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { Layout, Button } from 'antd';
+import {Layout, Button, message} from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Toolbar from 'components/Toolbar';
 import SearchBar from 'components/SearchBar';
@@ -13,9 +13,9 @@ import $$ from "cmn-utils";
 const { Content, Header, Footer } = Layout;
 const Pagination = DataTable.Pagination;
 
-@connect(({ crud, loading }) => ({
-    crud,
-    loading: loading.models.crud
+@connect(({ crud1, loading }) => ({
+    crud1,
+    loading: loading.models.crud1
 }))
 export default class extends BaseComponent {
     state = {
@@ -26,11 +26,13 @@ export default class extends BaseComponent {
 
     handleDelete = records => {
         const { rows } = this.state;
-
+        const status = 'fail'
+        console.log('Delete')
         this.props.dispatch({
-            type: 'crud/remove',
+            type: 'crud1/update',
             payload: {
                 records,
+                status,
                 success: () => {
                     // 如果操作成功，在已选择的行中，排除删除的行
                     this.setState({
@@ -38,6 +40,28 @@ export default class extends BaseComponent {
                             item => !records.some(jtem => jtem.id === item.id)
                         )
                     });
+                    message.success('更新成功')
+                }
+            }
+        });
+    };
+    handlePass = records => {
+        const { rows } = this.state;
+        const status = 'pass'
+        console.log('Pass')
+        this.props.dispatch({
+            type: 'crud1/update',
+            payload: {
+                records,
+                status,
+                success: () => {
+                    // 如果操作成功，在已选择的行中，排除删除的行
+                    this.setState({
+                        rows: rows.filter(
+                            item => !records.some(jtem => jtem.id === item.id)
+                        )
+                    });
+                    message.success('更新成功')
                 }
             }
         });
@@ -50,8 +74,8 @@ export default class extends BaseComponent {
         }
     }
     render() {
-        const { crud, loading, dispatch } = this.props;
-        const { pageData, employees } = crud;
+        const { crud1, loading, dispatch } = this.props;
+        const { pageData, employees } = crud1;
         const columns = createColumns(this, employees);
         const { rows, record, visible } = this.state;
 
@@ -59,10 +83,9 @@ export default class extends BaseComponent {
             columns,
             onSearch: values => {
                 dispatch({
-                    type: 'crud/getPageInfo',
+                    type: 'crud1/getPageInfo',
                     payload: {
-                        pageData: pageData.filter(values).jumpPage(1, 10),
-                        type: "search"
+                        pageData: pageData.filter(values).jumpPage(1, 10)
                     }
                 });
             }
@@ -79,7 +102,7 @@ export default class extends BaseComponent {
             selectedRowKeys: rows.map(item => item.id),
             onChange: ({ pageNum, pageSize }) => {
                 dispatch({
-                    type: 'crud/getPageInfo',
+                    type: 'crud1/getPageInfo',
                     payload: {
                         pageData: pageData.jumpPage(pageNum, pageSize)
                     }
@@ -105,7 +128,7 @@ export default class extends BaseComponent {
             // 可以使用主键或是否有record来区分状态
             onSubmit: values => {
                 dispatch({
-                    type: 'crud/save',
+                    type: 'crud1/save',
                     payload: {
                         values,
                         success: () => {
@@ -125,7 +148,20 @@ export default class extends BaseComponent {
                     <Toolbar
                         appendLeft={
                             <Button.Group>
-
+                                <Button disabled={!rows.length}
+                                        onClick={e => this.onPassed(rows)}
+                                        icon={<PlusOutlined />}
+                                        type="primary"
+                                >
+                                    通过
+                                </Button>
+                                <Button
+                                    disabled={!rows.length}
+                                    onClick={e => this.onDelete(rows)}
+                                    icon={<DeleteOutlined />}
+                                >
+                                    删除
+                                </Button>
                             </Button.Group>
                         }
                         pullDown={<SearchBar type="grid" {...searchBarProps} />}

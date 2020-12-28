@@ -1,12 +1,13 @@
 import modelEnhance from '@/utils/modelEnhance';
-import {getQRcode} from "@/routes/Table/routers/Detail/service";
+import {getQRcode, getActivity_info, updatePerson} from "@/routes/Table/routers/Detail/service";
 
 let LOADED = false;
 export default modelEnhance({
   namespace: 'crudDetail',
   state: {
     data: "",
-    activity_info: null
+    activity_info: null,
+    id: null,
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -18,34 +19,73 @@ export default modelEnhance({
           let n2 = str.indexOf("=");//取得=号的位置
           let id = str.substr(n2 + 1, n1 - n2);//从=号后面的内容
           dispatch({
-            type: 'init',
+            type: 'initQRcode',
             payload: {
               id
             }
           });
+          dispatch({
+            type: 'initInfo',
+            payload: {
+              id
+            }
+          });
+
         }
       });
     }
   },
   effects: {
     // 进入页面加载
-    * init({payload}, {call, put, select}) {
-      console.log(payload)
+    * initQRcode({payload}, {call, put, select}) {
       let {data} = yield call(getQRcode,payload)
+
       yield put({
-        type: 'getSuccess',
+        type: 'getInitSuccess',
         payload: {
-          data
+          data : data,
+          id : payload,
+          type : 0
         }
       });
     },
+    * initInfo({payload}, {call, put, select}) {
+      let {data} = yield call(getActivity_info,payload)
+
+      yield put({
+        type: 'getInitSuccess',
+        payload: {
+          data: data,
+          id : payload,
+          type : 1
+        }
+      });
+    },
+    * update_person({payload}, {call, put, select}){
+      const { id } = yield select(state => state.crudDetail);
+      const data = {
+        id: id.id,
+        limit: payload
+      }
+      yield call(updatePerson,data)
+      return true
+    }
   },
   reducers: {
-    getSuccess(state, { payload }) {
-      return {
-        ...state,
-        data: payload.data,
-      };
+    getInitSuccess(state, { payload }) {
+      if (payload.type === 0) {
+        return {
+          ...state,
+          data: payload.data,
+          id : payload.id
+        };
+      }else {
+        return {
+          ...state,
+          activity_info: payload.data,
+          id : payload.id
+        };
+      }
     },
   }
 });

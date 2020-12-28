@@ -1,6 +1,6 @@
 import modelEnhance from '@/utils/modelEnhance';
 import PageHelper from '@/utils/pageHelper';
-import {listAll, save, remove_activity, insert_activity, listSearchAll} from "../service";
+import {listAll, save, remove_activity, insert_activity, updatePass} from "../service";
 /**
  * 当第一次加载完页面时为true
  * 可以用这个值阻止切换页面时
@@ -8,7 +8,7 @@ import {listAll, save, remove_activity, insert_activity, listSearchAll} from "..
  */
 let LOADED = false;
 export default modelEnhance({
-  namespace: 'crud',
+  namespace: 'crud1',
 
   state: {
     pageData: PageHelper.create(),
@@ -18,7 +18,7 @@ export default modelEnhance({
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
-        if (pathname === '/table' && !LOADED) {
+        if (pathname === '/table_failed' && !LOADED) {
           LOADED = true;
           dispatch({
             type: 'init'
@@ -31,7 +31,7 @@ export default modelEnhance({
   effects: {
     // 进入页面加载
     *init({ payload }, { call, put, select }) {
-      const { pageData } = yield select(state => state.crud);
+      const { pageData } = yield select(state => state.crud1);
       yield put({
         type: 'getPageInfo',
         payload: {
@@ -44,13 +44,11 @@ export default modelEnhance({
     },
     // 获取分页数据
     *getPageInfo({ payload }, { call, put }) {
-      const { pageData ,type} = payload;
+      const { pageData } = payload;
       if(pageData.pageNum == null){
         pageData.pageNum = 1
       }
-      console.log(pageData)
-      let {status, data} = type !== 'search' ? yield call(listAll, pageData.pageNum) : yield call(listSearchAll, pageData.filters);
-
+      let {status, data} = yield call(listAll, pageData.pageNum);
       data = PageHelper.exited(data)
       yield put({
         type: 'listSuccess',
@@ -69,11 +67,11 @@ export default modelEnhance({
       values.startTime = new Date(values.startTime).getTime();
       values.endTime = new Date(values.endTime).getTime();
       console.log(values)
-      // if(values.id != null) {
-      //   yield call(save, values)
-      // }else {
-      //   yield call(insert_activity,values)
-      // }
+      if(values.id != null) {
+        yield call(save, values)
+      }else {
+        yield call(insert_activity,values)
+      }
 
 
       yield put({
@@ -83,14 +81,24 @@ export default modelEnhance({
       success();
     },
     // 修改
-    *update({ payload }, { call, put }) {},
+    *update({ payload }, { call, put, select }) {
+      const { records, success, status } = payload;
+      const { pageData } = yield select(state => state.crud1);
+      for(var i = 0; i <records.length; i++){
+        console.log(records[i])
+        yield call(updatePass,records[i], status)
+      }
+      yield put({
+        type: 'getPageInfo',
+        payload: { pageData }
+      });
+      success();
+    },
     // 删除 之后查询分页
     *remove({ payload }, { call, put, select }) {
       const { records, success } = payload;
       const { pageData } = yield select(state => state.crud);
-      console.log(records,456)
       for(var i = 0; i <records.length; i++){
-        console.log(records[i])
         yield call(remove_activity,records[i])
       }
 
