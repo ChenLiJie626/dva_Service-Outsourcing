@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect, router } from 'dva';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Checkbox, Spin, Form, message } from 'antd';
-import logoImg from 'assets/images/logo1.png';
+import logoImg from 'assets/images/logo.svg';
 import './index.less';
 const { Link } = router;
 const { Content } = Layout;

@@ -4,7 +4,7 @@ import { Popover, Badge, Avatar } from 'antd';
 import { router } from 'dva';
 import cx from 'classnames';
 import './style/index.less';
-import logoImg from 'assets/images/logo2.jpg';
+import logoImg from 'assets/images/logo.svg';
 import SearchBox from './SearchBox';
 const { Link } = router;
 
@@ -88,7 +88,7 @@ class NavBar extends PureComponent {
         <div className="navbar-branding">
           <Link className="navbar-brand" to="/">
             <img src={logoImg} alt="logo" />
-            <b>Legends</b>
+            <b>活动管理</b>
 
           </Link>
           <span className="toggle_sidemenu_l" onClick={onCollapseLeftSide}>
@@ -151,7 +151,7 @@ class NavBar extends PureComponent {
           <li className="dropdown">
             <Popover
               placement="bottomRight"
-              title={`WELCOME ${user.userName}`}
+              title={`WELCOME ${user.name}`}
               overlayClassName={cx('navbar-popup', { [theme]: !!theme })}
               content={<UserDropDown />}
               trigger="click"

@@ -3,7 +3,7 @@ import { connect, router } from 'dva';
 import { Input, Button, Select, Row, Col, Popover, Progress, Layout, Form, Radio } from 'antd';
 import './index.less';
 import '../../Login/components/index.less';
-import logoImg from 'assets/images/logo1.png';
+import logoImg from 'assets/images/logo.svg';
 import Success from './Success';
 const { Link } = router;
 const { Content } = Layout;

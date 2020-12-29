@@ -1,7 +1,7 @@
 import $$ from 'cmn-utils';
 
 export async function getQRcode(payload) {
-    return $$.get('/activity/getQRcode',payload)
+    return $$.get('/activity/qrcode',payload)
 }
 
 export async function getActivity_info(payload) {

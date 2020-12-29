@@ -56,7 +56,7 @@ export default class extends BaseComponent {
           activity_img = activity_info.activity_img
           activity_intro = activity_info.activity_intro
       }
-      // let img_vase = 'data:image/png;base64,'+data
+      let img_vase = 'data:image/png;base64,'+data
       function confirm(e) {
           dispatch({
               type: 'crudDetail/update_person',
@@ -150,13 +150,13 @@ export default class extends BaseComponent {
                 <Tabs type="card">
                     <TabPane tab="二维码签到" key="1">
                         <Panel title="二维码预览">
-                          {/*<Image*/}
-                          {/*    style={{ width: 200 }}*/}
-                          {/*    src={img_vase}*/}
-                          {/*    previewList={[*/}
-                          {/*        img_vase*/}
-                          {/*    ]}*/}
-                          {/*/>*/}
+                          <Image
+                              style={{ width: 200 }}
+                              src={img_vase}
+                              previewList={[
+                                  img_vase
+                              ]}
+                          />
                         </Panel>
                     </TabPane>
                     <TabPane tab="活动概述" key="2">
