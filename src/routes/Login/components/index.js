@@ -14,7 +14,6 @@ const FormItem = Form.Item;
 }))
 export default class Login extends Component {
   handleSubmit = values => {
-    console.log(values)
     const { dispatch } = this.props;
     dispatch({
       type: 'login/login',
@@ -34,7 +33,7 @@ export default class Login extends Component {
       <Layout className="full-layout login-page">
         <Content>
           <Spin tip="登录中..." spinning={!!loading}>
-            <Form onFinish={this.handleSubmit} className="login-form" initialValues={{ userName: 'admin', password: 'admin', remember: true }}>
+            <Form onFinish={this.handleSubmit} className="login-form" initialValues={{ userName: '5959', password: '123456', remember: true }}>
               <div className="user-img">
                 <img src={logoImg} alt="logo" />
                 <b>LANIF</b>

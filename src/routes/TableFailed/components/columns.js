@@ -19,7 +19,7 @@ export default (self, employees) => [
   },
   {
     title: '活动名称',
-    name: 'name',
+    name: 'activityName',
     tableItem: {},
     searchItem: {
       group: 'abc'
@@ -28,14 +28,14 @@ export default (self, employees) => [
   },
   {
     title: '学院',
-    name: 'college_id',
+    name: 'collegeName',
     tableItem: {},
     searchItem: {},
     formItem: {}
   },
   {
     title: '负责人',
-    name: 'director_id',
+    name: 'directorName',
     tableItem: {},
     searchItem: {},
     formItem: {}

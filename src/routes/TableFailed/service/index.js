@@ -7,7 +7,15 @@ export async function listAll(payload){
         pageSize : 5
     });
 }
-
+export async function listSearchAll(payload){
+    const data = {
+        "activityName": payload.activityName,
+        "collegeName" : payload.collegeName,
+        "directorName": payload.directorName,
+        "status" : "fail"
+    }
+    return $$.post('/activity/askBykeywords', data);
+}
 export async function save(payload){
     let url;
     url = '/activity/update/'+payload.id

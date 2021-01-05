@@ -58,6 +58,12 @@ export function getFlatMenu(menus) {
 
 export async function getMenu(payload) {
   const user = $$.getStore('user')
+  if(user === null){
+    return {
+      status: false,
+      data: null
+    }
+  }
   if(user.role !== '1'){
     return $$.post('/user/menu', payload);
   }

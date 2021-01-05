@@ -23,25 +23,13 @@ export default class extends BaseComponent {
         rows: []
     };
     handlePass = records => {
-        const { rows } = this.state;
-        const status = 'pass'
-        console.log('Pass')
-        this.props.dispatch({
+        const { dispatch } = this.props;
+        console.log(records)
+        dispatch({
             type: 'ActivityParticipation/update',
-            payload: {
-                records,
-                status,
-                success: () => {
-                    // 如果操作成功，在已选择的行中，排除删除的行
-                    this.setState({
-                        rows: rows.filter(
-                            item => !records.some(jtem => jtem.id === item.id)
-                        )
-                    });
-                    message.success('报名成功')
-                }
-            }
-        });
+            payload: records
+        })
+
     };
 
     render() {
@@ -89,13 +77,7 @@ export default class extends BaseComponent {
                     <Toolbar
                         appendLeft={
                             <Button.Group>
-                                <Button disabled={!rows.length}
-                                        onClick={e => this.onPassed(rows)}
-                                        icon={<PlusOutlined />}
-                                        type="primary"
-                                >
-                                    报名
-                                </Button>
+
                             </Button.Group>
                         }
                         pullDown={<SearchBar type="grid" {...searchBarProps} />}

@@ -85,7 +85,8 @@ export default class extends BaseComponent {
                 dispatch({
                     type: 'crud1/getPageInfo',
                     payload: {
-                        pageData: pageData.filter(values).jumpPage(1, 10)
+                        pageData: pageData.filter(values).jumpPage(1, 10),
+                        type: "search"
                     }
                 });
             }

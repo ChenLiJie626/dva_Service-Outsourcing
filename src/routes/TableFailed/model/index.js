@@ -1,6 +1,6 @@
 import modelEnhance from '@/utils/modelEnhance';
 import PageHelper from '@/utils/pageHelper';
-import {listAll, save, remove_activity, insert_activity, updatePass} from "../service";
+import {listAll, save, remove_activity, insert_activity, updatePass,listSearchAll} from "../service";
 /**
  * 当第一次加载完页面时为true
  * 可以用这个值阻止切换页面时
@@ -44,11 +44,11 @@ export default modelEnhance({
     },
     // 获取分页数据
     *getPageInfo({ payload }, { call, put }) {
-      const { pageData } = payload;
+      const { pageData ,type} = payload;
       if(pageData.pageNum == null){
         pageData.pageNum = 1
       }
-      let {status, data} = yield call(listAll, pageData.pageNum);
+      let {status, data} = type !== 'search' ? yield call(listAll, pageData.pageNum) : yield call(listSearchAll, pageData.filters);
       data = PageHelper.exited(data)
       yield put({
         type: 'listSuccess',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
-import { Input, Button, Select, Row, Col, Popover, Progress, Layout, Form, Radio } from 'antd';
+import {Input, Button, Select, Row, Col, Popover, Progress, Layout, Form, Radio, message} from 'antd';
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo.svg';
@@ -48,6 +48,18 @@ export default class Register extends Component {
   }
 
   onGetCaptcha = () => {
+    const { dispatch } = this.props;
+    const telephone = this.form.getFieldValue('phone')
+    dispatch({
+      type: 'register/getAuthCode',
+      payload: {
+        telephone
+      }
+    }).then(result => {
+      if(result === true){
+        message.success('验证码发送成功');
+      }
+    });
     let count = 59;
     this.setState({ count });
     this.interval = setInterval(() => {
@@ -162,7 +174,7 @@ export default class Register extends Component {
               <b>LANIF</b>
               <span>Admin</span>
             </div>
-            <Form.Item name="staff_id" rules={[
+            <Form.Item name="staffId" rules={[
               {
                 required: true,
                 message: '请输入职工编号！'
@@ -230,6 +242,59 @@ export default class Register extends Component {
               }
             ]}>
               <Input size="large" placeholder="学院编号" />
+            </Form.Item>
+            <Form.Item>
+              <Input.Group compact>
+                <Select
+                    size="large"
+                    value={prefix}
+                    onChange={this.changePrefix}
+                    style={{ width: '20%' }}
+                >
+                  <Select.Option value="86">+86</Select.Option>
+                  <Select.Option value="87">+87</Select.Option>
+                </Select>
+                <Form.Item noStyle name="phone" rules={[
+                  {
+                    required: true,
+                    message: '请输入手机号！'
+                  },
+                  {
+                    pattern: /^1\d{10}$/,
+                    message: '手机号格式错误！'
+                  }
+                ]}>
+                  <Input
+                      size="large"
+                      style={{ width: '80%' }}
+                      placeholder="11位手机号"
+                  />
+                </Form.Item>
+              </Input.Group>
+            </Form.Item>
+            <Form.Item>
+              <Row gutter={8}>
+                <Col span={16}>
+                  <Form.Item name="captcha" rules={[
+                    {
+                      required: true,
+                      message: '请输入验证码！'
+                    }
+                  ]}>
+                    <Input size="large" placeholder="验证码" />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Button
+                      className="getCaptcha"
+                      size="large"
+                      disabled={count}
+                      onClick={this.onGetCaptcha}
+                  >
+                    {count ? `${count} s` : '获取验证码'}
+                  </Button>
+                </Col>
+              </Row>
             </Form.Item>
             <Form.Item>
               <Button

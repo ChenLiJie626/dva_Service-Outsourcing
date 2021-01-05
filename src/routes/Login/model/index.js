@@ -24,7 +24,12 @@ export default {
   effects: {
     *login({ payload }, { call, put }) {
       try {
+        payload = {
+          userName: Number(payload.userName),
+          password: payload.password
+        }
         const { status, message, data } = yield call(login, payload);
+        console.log(status)
         // console.log(yield call(timers,payload));
         if (status) {
           $$.setStore('user', data);

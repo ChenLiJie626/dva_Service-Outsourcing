@@ -1,5 +1,5 @@
 import modelEnhance from '@/utils/modelEnhance';
-import { register } from '../service';
+import { register, getAuthCode, verifyAuthCode } from '../service';
 
 export default modelEnhance({
   namespace: 'register',
@@ -10,14 +10,34 @@ export default modelEnhance({
 
   effects: {
     *submit({ payload }, { call, put }) {
-      console.log(payload)
-      const response = yield call(register, payload);
-      console.log(response)
-      yield put({
-        type: 'registerHandle',
-        payload: response,
-      });
+      try {
+        const verify = {
+          telephone: payload.phone,
+          authCode: payload.captcha
+        }
+        const {code} = yield call(verifyAuthCode, verify)
+        if(code !== 200){
+          return false;
+        }
+        const response = yield call(register, payload);
+        console.log(response)
+        yield put({
+          type: 'registerHandle',
+          payload: response,
+        });
+      }catch (e){
+
+      }
+
+
     },
+    *getAuthCode({ payload }, { call, put }){
+      const {message, status, code} = yield call(getAuthCode, payload);
+      console.log(message,status)
+      if (code === 200){
+        return true
+      }
+    }
   },
 
   reducers: {

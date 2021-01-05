@@ -1,6 +1,7 @@
 import modelEnhance from '@/utils/modelEnhance';
 
 export default modelEnhance({
-  namespace: 'dashboard',
+    namespace: 'ActivityUser',
+
 
 });

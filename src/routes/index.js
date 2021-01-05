@@ -16,6 +16,7 @@ import heatmap from './heatmap'
 import chart from './chart/EC'
 import ApplyActivity from './ApplyActivity'
 import ActivityParticipation from './ActivityParticipation'
+import ActivityUser from './ActivityUser'
 /**
  * 主路由配置
  *
@@ -41,7 +42,7 @@ const routesConfig = app => [
     path: '/',
     title: '系统中心',
     component: BasicLayout,
-    indexRoute: '/dashboard',
+    indexRoute: '/home',
     childRoutes: [
       Dashboard(app),
       Blank(app),
@@ -52,6 +53,7 @@ const routesConfig = app => [
       ActivityDetail(app),
       ApplyActivity(app),
       ActivityParticipation(app),
+      ActivityUser(app),
       Page403(),
       Page500(),
       NotFound(),

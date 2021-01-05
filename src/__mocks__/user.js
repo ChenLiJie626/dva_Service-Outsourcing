@@ -40,9 +40,9 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     '/api/user/register': options => toSuccess(),
     '/api/user/menu': options => toSuccess([
       {
-        name: '仪表盘',
+        name: '主页',
         icon: 'DashboardOutlined',
-        path: '/dashboard',
+        path: '/home',
       },
       {
         name: '页面',
@@ -83,14 +83,18 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             name: '报名活动',
             path: '/applyActivity',
           },
+          {
+            name: '已报名活动',
+            path: '/ActivityUser',
+          },
         ],
       },
     ], 400),
     '/api/admin/menu': options => toSuccess([
       {
-        name: '仪表盘',
+        name: '主页',
         icon: 'DashboardOutlined',
-        path: '/dashboard',
+        path: '/home',
       },
       {
         name: '页面',

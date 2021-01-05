@@ -1,7 +1,9 @@
 import modelEnhance from '@/utils/modelEnhance';
 import PageHelper from "@/utils/pageHelper";
 import {listAll, listSearchAll} from "@/routes/Table/service";
-
+import {register} from '../service'
+import $$ from 'cmn-utils';
+import {message} from "antd";
 let LOADED = false;
 export default modelEnhance({
     namespace: 'ActivityParticipation',
@@ -56,10 +58,19 @@ export default modelEnhance({
         },
         // 修改
         *update({ payload }, { call, put, select }) {
-            const { records, success, status } = payload;
 
-            console.log(records)
-            success();
+            const staffId = $$.getStore('user').staff_id
+            let activityId = payload[0].id
+            const reData = {
+                staffId: Number(staffId),
+                activityId: activityId
+            }
+            try {
+                yield call(register, reData)
+                message.success('报名成功')
+            } catch (e){
+
+            }
         },
     },
     reducers: {
