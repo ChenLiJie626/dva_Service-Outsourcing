@@ -87,6 +87,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             name: '已报名活动',
             path: '/ActivityUser',
           },
+          {
+            name: '已创建活动',
+            path: '/ActivityCreater',
+          },
         ],
       },
     ], 400),

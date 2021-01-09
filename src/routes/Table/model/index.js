@@ -69,11 +69,11 @@ export default modelEnhance({
       values.startTime = new Date(values.startTime).getTime();
       values.endTime = new Date(values.endTime).getTime();
       console.log(values)
-      // if(values.id != null) {
-      //   yield call(save, values)
-      // }else {
-      //   yield call(insert_activity,values)
-      // }
+      if(values.id != null) {
+        yield call(save, values)
+      }else {
+        yield call(insert_activity,values)
+      }
 
 
       yield put({

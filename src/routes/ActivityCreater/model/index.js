@@ -1,17 +1,18 @@
 import modelEnhance from '@/utils/modelEnhance';
+import PageHelper from '@/utils/pageHelper';
 import $$ from 'cmn-utils';
 import {getUserActivity} from '../service'
 let LOADED = false;
 export default modelEnhance({
-    namespace: 'ActivityUser',
+    namespace: 'ActivityCreater',
 
     state: {
-        activity: null
+        pageData: PageHelper.create(),
     },
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(({ pathname }) => {
-                if (pathname === '/ActivityUser' && !LOADED) {
+                if (pathname === '/ActivityCreater' && !LOADED) {
                     LOADED = true;
                     dispatch({
                         type: 'init'
@@ -23,22 +24,36 @@ export default modelEnhance({
     effects: {
         // 进入页面加载
         * init({payload}, {call, put, select}) {
-            const user = $$.getStore('user')
-
-            const {data} = yield call(getUserActivity,user.staffId);
+            const { pageData } = yield select(state => state.ActivityCreater);
+            yield put({
+                type: 'getPageInfo',
+                payload: {
+                    pageData: pageData.startPage(1, 10)
+                }
+            });
+        },
+        *getPageInfo({ payload }, { call, put }) {
+            const { pageData} = payload;
+            if(pageData.pageNum == null){
+                pageData.pageNum = 1
+            }
+            console.log(pageData)
+            let {status, data} = yield call(getUserActivity, pageData.pageNum)
+            data = PageHelper.exited(data)
             yield put({
                 type: 'getSuccess',
                 payload: {
                     data
                 }
             });
+
         },
     },
     reducers: {
         getSuccess(state, { payload }) {
             return {
                 ...state,
-                activity: payload.data,
+                pageData: payload.data,
             };
         },
     }

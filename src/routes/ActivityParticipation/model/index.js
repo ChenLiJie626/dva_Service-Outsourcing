@@ -59,7 +59,7 @@ export default modelEnhance({
         // 修改
         *update({ payload }, { call, put, select }) {
 
-            const staffId = $$.getStore('user').staff_id
+            const staffId = $$.getStore('user').staffId
             let activityId = payload[0].id
             const reData = {
                 staffId: Number(staffId),

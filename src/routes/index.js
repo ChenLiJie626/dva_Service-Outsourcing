@@ -17,6 +17,7 @@ import chart from './chart/EC'
 import ApplyActivity from './ApplyActivity'
 import ActivityParticipation from './ActivityParticipation'
 import ActivityUser from './ActivityUser'
+import ActivityCreater from './ActivityCreater'
 /**
  * 主路由配置
  *
@@ -54,6 +55,7 @@ const routesConfig = app => [
       ApplyActivity(app),
       ActivityParticipation(app),
       ActivityUser(app),
+      ActivityCreater(app),
       Page403(),
       Page500(),
       NotFound(),
